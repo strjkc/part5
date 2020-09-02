@@ -3,6 +3,7 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
+import CreationForm from './components/CreationForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -34,31 +35,6 @@ const App = () => {
     setNotification(text)
     setTimeout(() => setNotification(null), 3000)
   }
-
-  const blogForm = () => (
-    <div>
-      <h2>Create new</h2>
-      <form onSubmit={submitBlog}>
-        <div>
-          title:
-          <input type='text' value={title} onChange={({target}) => setTitle(target.value) }></input>
-        </div>
-        <div>
-          author:
-          <input type='text' value={author} onChange={({target}) => setAuthor(target.value) }></input>
-        </div>
-        <div>
-          content:
-          <input type='text' value={content} onChange={({ target }) => setContent(target.value)}></input>
-        </div>
-        <div>
-          url:
-          <input type='text' value={url} onChange={({target}) => setUrl(target.value) }></input>
-        </div>
-        <button type='submit'>Post</button>
-      </form>
-    </div>
-  )
 
   useEffect( () => {
     const savedUser = window.localStorage.getItem('user')
@@ -97,7 +73,7 @@ const App = () => {
         ? <div>
           { notification !== null
               ? <Notification notificationText={notification} /> : <></>}
-            {<LoginForm values={{username, password}} functions={{setUsername, setPassword, handleLogin}}/>}
+              <LoginForm values={{username, password}} functions={{setUsername, setPassword, handleLogin}}/>
           </div>
         : <div>
             <h2>blogs</h2>
@@ -106,7 +82,7 @@ const App = () => {
             <div>
               {user.name} logged in
               <button onClick={handleLogout}>Logout</button>
-              {blogForm()}
+              <CreationForm values={{title,author,content,url}} functions={{setTitle, setAuthor, setContent, setUrl, submitBlog}} />
               </div>
             {blogs.map(blog =>
             <Blog key={blog.id} blog={blog} />
