@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import Notification from './components/Notification'
+import LoginForm from './components/LoginForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -84,23 +85,6 @@ const App = () => {
     )
   }
 
-  const loginForm = () => (
-    <div>
-      <h1>Log in to application:</h1>
-      <form onSubmit={handleLogin}>
-        <div>
-        username:
-        <input type='text' value={username} onChange={({ target }) => setUsername(target.value)}></input>
-        </div>
-        <div>
-        password:
-        <input type='text' value={password} onChange={({ target }) => setPassword(target.value)}></input>
-        </div>
-        <button type='submit'>Login</button>
-        </form>
-    </div>
-  )
-
   const handleLogout = () => {
     window.localStorage.removeItem('user')
     window.location.reload()
@@ -113,7 +97,7 @@ const App = () => {
         ? <div>
           { notification !== null
               ? <Notification notificationText={notification} /> : <></>}
-            {loginForm()}
+            {<LoginForm values={{username, password}} functions={{setUsername, setPassword, handleLogin}}/>}
           </div>
         : <div>
             <h2>blogs</h2>
