@@ -1,8 +1,6 @@
 import React from 'react'
 
 const CreationForm = ({values, functions}) => {
-    console.log('values',values)
-    console.log('functions',functions)
     return(
         <div>
         <h2>Create new</h2>

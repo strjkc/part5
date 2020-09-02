@@ -1,7 +1,6 @@
 import React from 'react'
 
 const LoginForm = (props) => {
-    console.log(props)
     return(
         <div>
             <h1>Log in to application:</h1>
