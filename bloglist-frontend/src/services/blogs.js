@@ -1,6 +1,13 @@
 import axios from 'axios'
 const baseUrl = '/api'
 
+
+let token = null
+
+const setToken = (userToken) => {
+  token = `bearer ${userToken}`
+  console.log('utils token: ',token)
+}
 const getAll = () => {
   const request = axios.get(`${baseUrl}/blogs`)
   return request.then(response => response.data)
@@ -11,4 +18,14 @@ const login = (credentials) => {
   return request.then(response => response.data)
 }
 
-export default { getAll, login }
+const createBlog = (newBlog) => {
+  const config = {
+    headers: {
+    Authorization: token
+    }
+  }
+  const request = axios.post(`${baseUrl}/blogs`, newBlog, config)
+  return request.then( response => response.data)
+}
+
+export default { getAll, login, setToken, createBlog }
