@@ -14,13 +14,22 @@ const App = () => {
     )  
   }, [])
 
+  useEffect( () => {
+    const savedUser = window.localStorage.getItem('user')
+    if(savedUser)
+      setUser(JSON.parse(savedUser))
+  }, [])
+
   const handleLogin = (event) => {
     event.preventDefault()
     console.log('logged in')
     blogService.login({username, password})
-    .then(response => setUser(response) )
+    .then(response => { 
+      setUser(response)
+      window.localStorage.setItem('user', JSON.stringify(response))
+
+     })
   }
-  console.log('App user: ', user)
 
   const loginForm = () => (
     <div>
