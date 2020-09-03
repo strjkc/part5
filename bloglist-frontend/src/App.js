@@ -4,30 +4,10 @@ import Login from './components/Login'
 import Main from './components/Main'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
-  const [content, setContent] = useState('')
   const [notification, setNotification] = useState(null)
-
-  useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
-  }, [])
-  
-  const submitBlog = (event) => {
-    event.preventDefault()
-    blogService.createBlog({title,author, content, url})
-    .then( response => { 
-      setBlogs(blogs.concat(response))
-      displayNotification(`a new blog ${title} by ${author} added`)
-    })
-  }
 
   const displayNotification = (text) => {
     setNotification(text)
@@ -64,7 +44,7 @@ const App = () => {
       {
         user === null
         ? <Login notification={notification} loginValues={{username, password}} loginFunctions={{handleLogin, setPassword, setUsername}} />
-        : <Main notification={notification} blogs={blogs} user={user} creationValues={{title,author,content,url}} creationFunctions={{setTitle, setAuthor, setContent, setUrl, submitBlog}} />  
+        : <Main notification={notification}  user={user}   />  
       }
     </div>
   )
