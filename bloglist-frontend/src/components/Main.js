@@ -24,6 +24,12 @@ const Main = ({ notification, user }) => {
     window.localStorage.removeItem('user')
     window.location.reload()
   }
+
+  const handleLikes = (blog) => {
+    blogService.updateLikes(blog)
+      .then(response => setBlogs(blogs.map(blog => blog.id === response.id ? response : blog)) )
+  }
+
   return (
     <div>
       <h2>blogs</h2>
@@ -37,7 +43,7 @@ const Main = ({ notification, user }) => {
         <button onClick={() => setDisplayCreation(!displayCreation)}>{displayCreation ? 'Cancel' : 'New note'}</button>
       </div>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} handleLikes={handleLikes} />
       )}
     </div>
   )
