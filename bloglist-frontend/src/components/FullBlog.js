@@ -10,7 +10,7 @@ const FullBlog = ({ blog, functions }) => {
         {blog.likes}
         <button onClick={ () => functions.handleLikes(blog) }>Like</button>
       </div>
-      <button onClick={ () => functions.removeBlogs(blog.id) }>Remove</button>
+      <button onClick={ () => functions.removeBlogs(blog) }>Remove</button>
     </div>
   )
 }

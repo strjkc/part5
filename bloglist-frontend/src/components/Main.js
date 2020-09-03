@@ -30,9 +30,11 @@ const Main = ({ notification, user }) => {
       .then(response => setBlogs(blogs.map(blog => blog.id === response.id ? response : blog).sort((a, b) => b.likes - a.likes)))
   }
 
-  const removeBlogs = (blogId) => {
-    blogService.deleteBlog(blogId)
-      .then(setBlogs(blogs.filter(blog => blog.id !== blogId)))
+  const removeBlogs = (blog) => {
+    const blogToRemove = blog
+   if(window.confirm(`Remove blog ${blogToRemove.title} by ${blogToRemove.author}`))
+      blogService.deleteBlog(blogToRemove.id)
+        .then(setBlogs(blogs.filter(blog => blog.id !== blogToRemove.id)))
   }
 
   return (
