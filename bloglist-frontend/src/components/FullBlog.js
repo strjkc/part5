@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FullBlog = ({ blog, functions }) => {
+const FullBlog = ({ blog, functions, user }) => {
   return (
     <div>
       <p>{blog.author}</p>
@@ -10,7 +10,10 @@ const FullBlog = ({ blog, functions }) => {
         {blog.likes}
         <button onClick={ () => functions.handleLikes(blog) }>Like</button>
       </div>
-      <button onClick={ () => functions.removeBlogs(blog) }>Remove</button>
+      {blog.user.username === user.username
+      ? <button onClick={ () => functions.removeBlogs(blog) }>Remove</button>
+      : <></>
+    }
     </div>
   )
 }

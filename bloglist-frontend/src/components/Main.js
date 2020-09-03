@@ -50,7 +50,7 @@ const Main = ({ notification, user }) => {
         <button onClick={() => setDisplayCreation(!displayCreation)}>{displayCreation ? 'Cancel' : 'New note'}</button>
       </div>
       {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
-        <Blog key={blog.id} blog={blog} functions={{ removeBlogs, handleLikes }} />
+        <Blog key={blog.id} blog={blog} user={user} functions={{ removeBlogs, handleLikes }} />
       )}
     </div>
   )
