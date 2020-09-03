@@ -21,7 +21,7 @@ const login = (credentials) => {
 const createBlog = (newBlog) => {
   const config = {
     headers: {
-    Authorization: token
+      Authorization: token
     }
   }
   const request = axios.post(`${baseUrl}/blogs`, newBlog, config)
@@ -38,4 +38,14 @@ const updateLikes = (blog) => {
   return request.then(response => response.data)
 }
 
-export default { getAll, login, setToken, createBlog, updateLikes }
+const deleteBlog = (blogId) => {
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+  return axios.delete(`${baseUrl}/blogs/${blogId}`, config)
+  
+}
+
+export default { getAll, login, setToken, deleteBlog, createBlog, updateLikes }

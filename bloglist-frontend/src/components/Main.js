@@ -27,7 +27,12 @@ const Main = ({ notification, user }) => {
 
   const handleLikes = (blog) => {
     blogService.updateLikes(blog)
-      .then(response => setBlogs(blogs.map(blog => blog.id === response.id ? response : blog)) )
+      .then(response => setBlogs(blogs.map(blog => blog.id === response.id ? response : blog).sort((a, b) => b.likes - a.likes)))
+  }
+
+  const removeBlogs = (blogId) => {
+    blogService.deleteBlog(blogId)
+      .then(setBlogs(blogs.filter(blog => blog.id !== blogId)))
   }
 
   return (
@@ -42,8 +47,8 @@ const Main = ({ notification, user }) => {
         </div>
         <button onClick={() => setDisplayCreation(!displayCreation)}>{displayCreation ? 'Cancel' : 'New note'}</button>
       </div>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} handleLikes={handleLikes} />
+      {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
+        <Blog key={blog.id} blog={blog} functions={{ removeBlogs, handleLikes }} />
       )}
     </div>
   )

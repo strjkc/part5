@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import FullBlog from './FullBlog'
 
-const Blog = ({ blog, handleLikes }) => {
+const Blog = ({ blog, functions }) => {
   const [displayBlog, setDisplayBlog] = useState(false)
   const showFullBlog = { display: displayBlog ? '' : 'none' }
 
@@ -10,7 +10,7 @@ const Blog = ({ blog, handleLikes }) => {
       { blog.title }
       <button onClick={() => setDisplayBlog(!displayBlog)}>{displayBlog ? 'Hide' : 'View'}</button>
       <div style={showFullBlog}>
-        <FullBlog blog={blog} handleLikes={handleLikes}/>
+        <FullBlog blog={blog} functions={functions}/>
       </div>
     </div>
   )

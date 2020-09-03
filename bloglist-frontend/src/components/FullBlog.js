@@ -1,7 +1,6 @@
 import React from 'react'
-import blogServices from '../services/blogs'
 
-const FullBlog = ({ blog, handleLikes }) => {
+const FullBlog = ({ blog, functions }) => {
   return (
     <div>
       <p>{blog.author}</p>
@@ -9,8 +8,9 @@ const FullBlog = ({ blog, handleLikes }) => {
       <p>{blog.url}</p>
       <div>
         {blog.likes}
-        <button onClick={ () => handleLikes(blog) }>Like</button>
+        <button onClick={ () => functions.handleLikes(blog) }>Like</button>
       </div>
+      <button onClick={ () => functions.removeBlogs(blog.id) }>Remove</button>
     </div>
   )
 }
