@@ -1,22 +1,41 @@
-import React from 'react'
+import React, {useState} from 'react'
+import blogService from '../services/blogs'
 
 const LoginForm = (props) => {
-    return(
+  console.log(props)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleLogin = (event) => {
+    event.preventDefault()
+    blogService.login({ username, password })
+      .then(response => {
+        props.user.setUser(response)
+        blogService.setToken(response.token)
+        window.localStorage.setItem('user', JSON.stringify(response))
+      })
+      .catch( () => {
+        props.notification.displayNotification('wrong username or password')
+        console.log('error, wrong name')
+      })
+  }
+
+  return(
+    <div>
+      <h1>Log in to application:</h1>
+      <form onSubmit={handleLogin}>
         <div>
-            <h1>Log in to application:</h1>
-            <form onSubmit={props.functions.handleLogin}>
-                <div>
-                    username:
-                    <input type='text' value={props.values.username} onChange={({ target }) => props.functions.setUsername(target.value)}></input>
-                </div>
-                <div>
-                    password:
-                    <input type='text' value={props.values.password} onChange={({ target }) => props.functions.setPassword(target.value)}></input>
-                </div>
-                <button type='submit'>Login</button>
-            </form>
+          username:
+          <input type='text' value={username} onChange={({ target }) => setUsername(target.value)}/>
         </div>
-    )
+        <div>
+          password:
+          <input type='text' value={password} onChange={({ target }) => setPassword(target.value)}/>
+        </div>
+        <button type='submit'>Login</button>
+      </form>
+    </div>
+  )
 }
 
 export default LoginForm

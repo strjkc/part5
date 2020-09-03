@@ -15,6 +15,7 @@ const Main = ({ notification, user }) => {
       setBlogs( blogs )
     )
   }, [])
+  //displays the notification element if the state of the notification text is not null
   const showNotification = () => {
     if (notification.notification !== null)
       return <Notification notificationText={notification.notification}/>
