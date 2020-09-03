@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
 const CreationForm = (props) => {
-  console.log('CR Form ', props)
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')

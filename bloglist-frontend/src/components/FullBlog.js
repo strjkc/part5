@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const FullBlog = ({ blog, functions, user }) => {
   return (
@@ -16,6 +17,12 @@ const FullBlog = ({ blog, functions, user }) => {
     }
     </div>
   )
+}
+
+FullBlog.propTypes = {
+  blog: PropTypes.object.isRequired,
+  functions: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 export default FullBlog

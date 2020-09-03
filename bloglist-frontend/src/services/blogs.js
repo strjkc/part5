@@ -6,7 +6,6 @@ let token = null
 
 const setToken = (userToken) => {
   token = `bearer ${userToken}`
-  console.log('utils token: ',token)
 }
 const getAll = () => {
   const request = axios.get(`${baseUrl}/blogs`)

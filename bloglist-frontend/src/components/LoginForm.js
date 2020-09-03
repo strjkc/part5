@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
 const LoginForm = (props) => {
-  console.log(props)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
