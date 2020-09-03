@@ -4,7 +4,7 @@ import Notification from './Notification'
 import CreationForm from './CreationForm'
 import blogService from '../services/blogs'
 
-const Main = ({notification, user, creationValues, creationFunctions}) => {
+const Main = ({ notification, user }) => {
   const [displayCreation, setDisplayCreation] = useState(false)
   const [blogs, setBlogs] = useState([])
 
@@ -15,9 +15,9 @@ const Main = ({notification, user, creationValues, creationFunctions}) => {
       setBlogs( blogs )
     )
   }, [])
-  const displayNotification = () => {
-    if (notification !== null)
-      return <Notification notificationText={notification}/>
+  const showNotification = () => {
+    if (notification.notification !== null)
+      return <Notification notificationText={notification.notification}/>
   }
   const handleLogout = () => {
     window.localStorage.removeItem('user')
@@ -26,12 +26,12 @@ const Main = ({notification, user, creationValues, creationFunctions}) => {
   return (
     <div>
       <h2>blogs</h2>
-      {displayNotification()}
+      {showNotification()}
       <div>
         {user.name} logged in
         <button onClick={handleLogout}>Logout</button>
         <div style={displayCreationForm}>
-          <CreationForm blogs={blogs, setBlogs} displayNotification={displayNotification} />
+          <CreationForm blog={{ blogs, setBlogs }} displayNotification={notification.displayNotification} setDisplayCreation={setDisplayCreation} />
         </div>
         <button onClick={() => setDisplayCreation(!displayCreation)}>{displayCreation ? 'Cancel' : 'New note'}</button>
       </div>

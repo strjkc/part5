@@ -44,7 +44,7 @@ const App = () => {
       {
         user === null
         ? <Login notification={notification} loginValues={{username, password}} loginFunctions={{handleLogin, setPassword, setUsername}} />
-        : <Main notification={notification}  user={user}   />  
+        : <Main notification={{notification, displayNotification}}  user={user}   />
       }
     </div>
   )
