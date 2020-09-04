@@ -12,10 +12,10 @@ const Blog = ({ blog, functions, user }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div className='blogContainer' style={blogStyle}>
       { blog.title }
       <button onClick={() => setDisplayBlog(!displayBlog)}>{displayBlog ? 'Hide' : 'View'}</button>
-      <div style={showFullBlog}>
+      <div className='fullBlogContainer' style={showFullBlog}>
         <FullBlog blog={blog} user={user} functions={functions}/>
       </div>
     </div>

@@ -37,6 +37,15 @@ const Main = ({ notification, user }) => {
         .then(setBlogs(blogs.filter(blog => blog.id !== blogToRemove.id)))
   }
 
+  const appendBlog = (newBlog) => {
+    blogService.createBlog(newBlog)
+      .then( response => {
+        notification.displayNotification(`a new blog ${response.title} by ${response.author} added`)
+        setDisplayCreation(false)
+        setBlogs(blogs.concat(response))
+      })
+  }
+
   return (
     <div>
       <h2>blogs</h2>
@@ -45,7 +54,7 @@ const Main = ({ notification, user }) => {
         {user.name} logged in
         <button onClick={handleLogout}>Logout</button>
         <div style={displayCreationForm}>
-          <CreationForm blog={{ blogs, setBlogs }} displayNotification={notification.displayNotification} setDisplayCreation={setDisplayCreation} />
+          <CreationForm appendBlog={appendBlog}/>
         </div>
         <button onClick={() => setDisplayCreation(!displayCreation)}>{displayCreation ? 'Cancel' : 'New note'}</button>
       </div>
