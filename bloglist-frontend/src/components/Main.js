@@ -56,11 +56,13 @@ const Main = ({ notification, user }) => {
         <div style={displayCreationForm}>
           <CreationForm appendBlog={appendBlog}/>
         </div>
-        <button onClick={() => setDisplayCreation(!displayCreation)}>{displayCreation ? 'Cancel' : 'New note'}</button>
+        <button onClick={() => setDisplayCreation(!displayCreation)}>{displayCreation ? 'Cancel' : 'New blog'}</button>
       </div>
-      {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
+      <div id='blog-container'>
+        {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
         <Blog key={blog.id} blog={blog} user={user} functions={{ removeBlogs, handleLikes }} />
-      )}
+        )}
+      </div>
     </div>
   )
 }

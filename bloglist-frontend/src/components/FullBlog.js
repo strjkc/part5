@@ -8,7 +8,7 @@ const FullBlog = ({ blog, functions, user }) => {
       <p>{blog.content}</p>
       <p>{blog.url}</p>
       <div>
-        {blog.likes}
+        <div id='likes'>{blog.likes}</div>
         <button onClick={ () => functions.handleLikes(blog) }>Like</button>
       </div>
       {blog.user.username === user.username
