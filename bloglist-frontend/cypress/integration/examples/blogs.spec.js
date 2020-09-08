@@ -1,3 +1,5 @@
+const { array } = require("prop-types")
+
 describe('Blog test', function() {
   beforeEach(function(){
     cy.request('POST', 'http://localhost:3003/api/test/reset')
@@ -42,7 +44,7 @@ describe('Blog test', function() {
     })
 })
 
-describe.only('User can post blogs', function(){
+describe('User can post blogs', function(){
     beforeEach(function(){
       cy.login('testUser', 'testUser')
     })
@@ -58,23 +60,41 @@ describe.only('User can post blogs', function(){
       .contains('New blog')
     })
     it('the user can like a blog', function(){
-        cy.insertBlog()
+        cy.insertBlog('new blog')
         cy.contains('View').click()
         cy.get('#likes').contains('0')
         cy.contains('Like').click()
         cy.get('#likes').contains('1')
     })
     it('the user can delete a blog', function(){
-      cy.insertBlog()
+      cy.insertBlog('new blog')
       cy.contains('View').click()
       cy.contains('Remove').click()
       cy.get('#blog-container').should('not.contain', 'newblog')
     })
     it('the user can\'t delete others blog', function(){
-      cy.insertBlog()
+      cy.insertBlog('new blog')
       cy.login('testUser2', 'testUser2')
       cy.contains('View').click()
       cy.get('#blog-container').should('not.contain', 'Remove')
     })
-})
-})
+    it('blog are ordered by likes', function() {
+      cy.insertBlog('First blog', 1)
+      cy.insertBlog('Second blog', 2)
+      cy.insertBlog('Third blog', 3)
+      let array1 = []
+      cy.get('.blogContainer').then(response => {
+        for(let i = 0; i < response.length; i ++ )
+        {
+          cy.wrap(response[i]).find('#likes')
+          .then(resp => array1.push(resp.text()))
+        }
+      }).then(() => {
+        cy.log(array1)
+        for (let i = 0; i < array1.length - 1; i ++ )
+        {
+          cy.expect(Number(array1[i])).to.be.greaterThan(Number(array1[ i + 1 ]))
+        }})
+      
+    })
+})})
